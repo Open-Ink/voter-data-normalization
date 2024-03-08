@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: "alabama_elections"
+    description: A list of all indexed elections in alabama
+    columns:
+      - name: ELECTION_CODE
+        type: VARCHAR
+        description: An code used in the alabama voter file for each election
+      - name: ELECTION_NAME
+        type: VARCHAR
+        description: The name of the election
+      - name: ELECTION_DATE
+        type: VARCHAR
+        description: The date of the election in MM/DD/YYYY format

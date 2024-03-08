@@ -1,0 +1,15 @@
+STATUS_CODE,STATUS_NAME
+A,Active
+I,Inactive
+CH,Challenged
+C,Cancelled
+S,Suspense
+D,Denied
+R,Removed
+T,Temporary
+P,Pending
+CON,Confirmation
+PROV,Provisional
+PREREG,PRE REGISTRATION (UNDERAGE)
+AC,Unsure
+N18,N18

@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: "all_voter_history"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - STATE_CODE
+            - COUNTY_CODE
+            - VOTER_ID
+            - ELECTION_DATE
+    columns:
+      - name: STATE_CODE
+        type: VARCHAR
+        tests:
+          - not_null
+      - name: COUNTY_CODE
+        type: VARCHAR
+        tests:
+          - not_null
+      - name: VOTER_ID
+        type: VARCHAR
+        tests:
+          - not_null
+      - name: ELECTION_TYPE
+        type: VARCHAR
+      - name: ELECTION_DATE
+        type: VARCHAR
+      - name: PARTY_VOTED
+        type: VARCHAR
+      - name: VOTING_METHOD
+        type: VARCHAR
+      - name: DATE_OF_VOTING
+        type: VARCHAR
+      - name: WAS_VOTE_COUNTED
+        type: VARCHAR
+      - name: ADDITIONAL_DATA
+        type: OBJECT

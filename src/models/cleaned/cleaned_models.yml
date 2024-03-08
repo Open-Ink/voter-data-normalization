@@ -1,0 +1,318 @@
+version: 2
+
+state_voters: &state_voters
+  - name: "state_voters"
+    description: "The cleaned voter registration list of the state"
+    columns:
+      - name: FILE_DATE
+        type: DATE
+        description: The date the file was loaded
+        tests:
+          - not_null
+      - name: STATE_CODE
+        type: VARCHAR
+        description: The state the voter file belongs to.
+        tests:
+          - not_null
+      - name: COUNTY_CODE
+        type: VARCHAR
+        description: The county code as it appears in the voter file. If a voter file has a county code and a county name
+        tests:
+          - not_null
+      - name: VOTER_ID
+        type: VARCHAR
+        description: The Voter ID of the voter. If a state has both county level and state level voter ids, the state voter id is used.
+        tests:
+          - not_null
+      - name: PREFIX
+        type: VARCHAR
+        description: The name prefix of the voter
+      - name: FIRST_NAME
+        type: VARCHAR
+        description: The first name of the voter
+      - name: MIDDLE_NAME
+        type: VARCHAR
+        description: The middle name of the voter
+      - name: LAST_NAME
+        type: VARCHAR
+        description: The last name of the voter
+      - name: NAME_SUFFIX
+        type: VARCHAR
+        description: The suffix of the voter (Jr, Sr, III etc)
+      - name: RESIDENCE_ADDRESS_LINE_1
+        type: VARCHAR
+        description: The street address of the voter
+      - name: RESIDENCE_ADDRESS_LINE_2
+        type: VARCHAR
+        description: Address Line 2 of the voter.
+      - name: RESIDENCE_ADDRESS_CITY
+        type: VARCHAR
+        description: The city the voter lives in
+      - name: RESIDENCE_ADDRESS_STATE
+        type: VARCHAR
+        description: The state the voter lives in. In most cases, this is the same as STATE_CODE, but there are some exceptions
+      - name: RESIDENCE_ADDRESS_ZIPCODE
+        type: VARCHAR
+        description: The Zip code that the voter lives in.
+      - name: BIRTH_YEAR
+        type: INT
+        description: The Year of birth of the voter. (Some states do not provide this data)
+      - name: BIRTH_MONTH,
+        type: VARCHAR
+        description: The month of birth of the voter. (Most states do not provide this data)
+      - name: BIRTH_DATE
+        type: VARCHAR
+        description: The Date (DayOfMonth) of birth of the voter. (Most states do not provide this data)
+      - name: VOTER_STATUS
+        type: VARCHAR
+        description: The voter status.
+        tests:
+          - relationships:
+              to: ref('voter_status')
+              field: status_code
+      - name: REGISTRATION_DATE
+        type: DATE
+        description: The registration date. If we have both county and state level registration date, we pick the state registration date.
+      - name: CONGRESSIONAL_DISTRICT
+        type: VARCHAR
+      - name: STATE_SENATE_DISTRICT
+        type: VARCHAR
+      - name: STATE_HOUSE_DISTRICT
+        type: VARCHAR
+      - name: JUDICIAL_DISTRICT
+        type: VARCHAR
+      - name: COUNTY_COMMISSION_DISTRICT
+        type: VARCHAR
+      - name: SCHOOL_BOARD_DISTRICT
+        type: VARCHAR
+      - name: CITY_COUNCIL_DISTRICT
+        type: VARCHAR
+      - name: COUNTY_PRECINCT
+        type: VARCHAR
+      - name: MUNICIPAL_PRECINCT
+        type: VARCHAR
+      - name: RACE
+        type: VARCHAR
+        description: The race of the voter.
+        tests:
+          - relationships:
+              to: ref('races')
+              field: code
+      - name: GENDER
+        type: VARCHAR
+        description: The gender of the voter.
+        tests:
+          - relationships:
+              to: ref('genders')
+              field: gender_code
+      - name: MAILING_ADDRESS_LINE_1
+        type: VARCHAR
+      - name: MAILING_ADDRESS_LINE_2
+        type: VARCHAR
+      - name: MAILING_LINE_3
+        type: VARCHAR
+      - name: MAILING_CITY
+        type: VARCHAR
+      - name: MAILING_STATE
+        type: VARCHAR
+      - name: MAILING_ZIPCODE
+        type: VARCHAR
+      - name: MAILING_COUNTRY
+        type: VARCHAR
+
+
+state_voter_history: &state_voter_history
+  - name: "state_voter_history"
+    description: A table containing all voters from the state and the elections they voted in.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - STATE_CODE
+            - COUNTY_CODE
+            - VOTER_ID
+            - ELECTION_DATE
+    columns:
+      - name: STATE_CODE
+        type: VARCHAR
+        description: The state the voter file belongs to.
+        tests:
+          - not_null
+      - name: COUNTY_CODE
+        type: VARCHAR
+        tests:
+          - not_null
+      - name: VOTER_ID
+        type: VARCHAR
+        description: The Voter ID of the voter. If a state has both county level and state level voter ids, the state voter id is used.
+        tests:
+          - not_null
+      - name: ELECTION_TYPE
+        type: VARCHAR
+        description: The type of election.
+      - name: ELECTION_DATE
+        type: VARCHAR
+        description: The date of the election.
+      - name: PARTY_VOTED
+        type: VARCHAR
+        description: Indicates the party that a voter voted for. This is available for primaries only.
+      - name: VOTING_METHOD
+        type: VARCHAR
+        description: Indicates the method of voting.
+      - name: DATE_OF_VOTING
+        type: VARCHAR
+        description: The data is only available in a couple of states. Indicates the date the ballot was cast.
+      - name: WAS_VOTE_COUNTED
+        type: VARCHAR
+        description: Indicates if the vote was counted. This mainly applies to absentee ballots.
+      - name: ADDITIONAL_DATA
+        type: OBJECT
+        description: A bucked to hold any additional data that might be useful.
+
+models:
+  - <<: *state_voters
+    name: alabama_voters
+  - <<: *state_voter_history
+    name: alabama_voter_history
+  - <<: *state_voters
+    name: alaska_voters
+  - <<: *state_voter_history
+    name: alaska_voter_history
+  - <<: *state_voter_history
+    name: arkansas_voters
+  - <<: *state_voter_history
+    name: arkansas_voter_history
+  - <<: *state_voters
+    name: california_voters
+  - <<: *state_voter_history
+    name: california_voter_history
+  - <<: *state_voters
+    name: colorado_voters
+  - <<: *state_voters
+    name: connecticut_voters
+  - <<: *state_voter_history
+    name: connecticut_voter_history
+  - <<: *state_voters
+    name: delaware_voters
+  - <<: *state_voter_history
+    name: delaware_voter_history
+  - <<: *state_voters
+    name: district_of_columbia_voters
+  - <<: *state_voter_history
+    name: district_of_columbia_voter_history
+  - <<: *state_voters
+    name: florida_voters
+  - <<: *state_voter_history
+    name: florida_voter_history
+  - <<: *state_voters
+    name: georgia_voters
+  - <<: *state_voter_history
+    name: georgia_voter_history
+  - <<: *state_voters
+    name: idaho_voters
+  - <<: *state_voter_history
+    name: idaho_voter_history
+  - <<: *state_voters
+    name: iowa_voters
+  - <<: *state_voter_history
+    name: iowa_voter_history
+  - <<: *state_voters
+    name: kansas_voters
+  - <<: *state_voter_history
+    name: kansas_voter_history
+  - <<: *state_voters
+    name: louisiana_voters
+  - <<: *state_voters
+    name: maryland_voters
+  - <<: *state_voter_history
+    name: maryland_voter_history
+  - <<: *state_voters
+    name: michigan_voters
+  - <<: *state_voter_history
+    name: michigan_voter_history
+  - <<: *state_voters
+    name: mississippi_voters
+  - <<: *state_voter_history
+    name: mississippi_voter_history
+  - <<: *state_voters
+    name: missouri_voters
+  - <<: *state_voter_history
+    name: missouri_voter_history
+  - <<: *state_voters
+    name: montana_voters
+  - <<: *state_voter_history
+    name: montana_voter_history
+  - <<: *state_voters
+    name: nebraska_voters
+  - <<: *state_voter_history
+    name: nebraska_voter_history
+  - <<: *state_voters
+    name: nevada_voters
+  - <<: *state_voter_history
+    name: nevada_voter_history
+  - <<: *state_voters
+    name: new_hampshire_voters
+  - <<: *state_voter_history
+    name: new_hampshire_voter_history
+  - <<: *state_voters
+    name: new_jersey_voters
+  - <<: *state_voter_history
+    name: new_jersey_voter_history
+  - <<: *state_voters
+    name: new_mexico_voters
+  - <<: *state_voters
+    name: new_york_voters
+  - <<: *state_voters
+    name: north_carolina_voters
+  - <<: *state_voters
+    name: ohio_voters
+  - <<: *state_voter_history
+    name: ohio_voter_history
+  - <<: *state_voters
+    name: oklahoma_voters
+  - <<: *state_voter_history
+    name: oklahoma_voter_history
+  - <<: *state_voters
+    name: oregon_voters
+  - <<: *state_voters
+    name: pennsylvania_voters
+  - <<: *state_voter_history
+    name: pennsylvania_voter_history
+  - <<: *state_voters
+    name: rhode_island_voters
+  - <<: *state_voter_history
+    name: rhode_island_voter_history
+  - <<: *state_voters
+    name: south_carolina_voters
+  - <<: *state_voters
+    name: south_dakota_voters
+  - <<: *state_voters
+    name: tennessee_voters
+  - <<: *state_voter_history
+    name: tennessee_voter_history
+  - <<: *state_voters
+    name: texas_voters
+  - <<: *state_voters
+    name: utah_voters
+  - <<: *state_voter_history
+    name: utah_voter_history
+  - <<: *state_voters
+    name: vermont_voters
+  - <<: *state_voter_history
+    name: vermont_voter_history
+  - <<: *state_voters
+    name: virginia_voters
+  - <<: *state_voters
+    name: washington_voters
+  - <<: *state_voter_history
+    name: washington_voter_history
+  - <<: *state_voters
+    name: west_virginia_voters
+  - <<: *state_voter_history
+    name: west_virginia_voter_history
+  - <<: *state_voters
+    name: wisconsin_voters
+  - <<: *state_voter_history
+    name: wisconsin_voter_history
+  - <<: *state_voters
+    name: wyoming_voters
+

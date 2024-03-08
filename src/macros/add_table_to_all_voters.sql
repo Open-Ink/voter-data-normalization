@@ -1,0 +1,55 @@
+{% macro add_table_to_all_voters(table_name) %}
+
+SELECT BASE64_ENCODE(
+               UPPER(
+                       ARRAY_TO_STRING(
+                               ARRAY_CONSTRUCT_COMPACT(
+                                       FILE_DATE, STATE_CODE, COUNTY_CODE, VOTER_ID), ' '))
+       ) AS SK_VOTER_INFO_ID,
+       FILE_DATE,
+       STATE_CODE,
+       COUNTY_CODE,
+       VOTER_ID,
+       PREFIX,
+       FIRST_NAME,
+       MIDDLE_NAME,
+       LAST_NAME,
+       NAME_SUFFIX,
+       RESIDENCE_ADDRESS_LINE_1,
+       RESIDENCE_ADDRESS_LINE_2,
+       RESIDENCE_ADDRESS_CITY,
+       RESIDENCE_ADDRESS_STATE,
+       RESIDENCE_ADDRESS_ZIPCODE,
+       RESIDENCE_ADDRESS_COUNTRY,
+       BIRTH_YEAR,
+       BIRTH_MONTH,
+       BIRTH_DATE,
+       VOTER_STATUS,
+       REGISTRATION_DATE,
+       CONGRESSIONAL_DISTRICT,
+       STATE_SENATE_DISTRICT,
+       STATE_HOUSE_DISTRICT,
+       JUDICIAL_DISTRICT,
+       COUNTY_COMMISSION_DISTRICT,
+       SCHOOL_BOARD_DISTRICT,
+       CITY_COUNCIL_DISTRICT,
+       COUNTY_PRECINCT,
+       MUNICIPAL_PRECINCT,
+       RACE,
+       GENDER,
+       MAILING_ADDRESS_LINE_1,
+       MAILING_ADDRESS_LINE_2,
+       MAILING_LINE_3,
+       MAILING_CITY,
+       MAILING_STATE,
+       MAILING_ZIPCODE,
+       MAILING_COUNTRY,
+       LAST_VOTED_DATE,
+       LAST_PARTY_VOTED,
+       CURRENT_TIMESTAMP AS CREATED_AT
+FROM {{ table_name }} T1
+    {% if is_incremental() %}
+WHERE NOT EXISTS (SELECT 1 FROM {{ this }} T2 WHERE T1.FILE_DATE = T2.FILE_DATE AND T1.STATE_CODE = T2.STATE_CODE)
+{% endif %}
+
+{% endmacro %}

@@ -1,0 +1,109 @@
+version: 2
+
+models:
+  - name: "all_voters"
+    description: "All processed voters"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - FILE_DATE
+            - STATE_CODE
+            - COUNTY_CODE
+            - VOTER_ID
+    columns:
+      - name: FILE_DATE
+        type: DATE
+        tests:
+          - not_null
+      - name: STATE_CODE
+        type: VARCHAR
+        tests:
+          - not_null
+      - name: COUNTY_CODE
+        type: VARCHAR
+        tests:
+          - not_null
+      - name: VOTER_ID
+        type: VARCHAR
+        tests:
+          - not_null
+      - name: PREFIX
+        type: VARCHAR
+      - name: FIRST_NAME
+        type: VARCHAR
+      - name: MIDDLE_NAME
+        type: VARCHAR
+      - name: LAST_NAME
+        type: VARCHAR
+      - name: NAME_SUFFIX
+        type: VARCHAR
+      - name: RESIDENCE_ADDRESS_LINE_1
+        type: VARCHAR
+      - name: RESIDENCE_ADDRESS_LINE_2
+        type: VARCHAR
+      - name: RESIDENCE_ADDRESS_CITY
+        type: VARCHAR
+      - name: RESIDENCE_ADDRESS_STATE
+        type: VARCHAR
+      - name: RESIDENCE_ADDRESS_ZIPCODE
+        type: VARCHAR
+      - name: BIRTH_YEAR
+        type: INT
+      - name: BIRTH_MONTH
+        type: VARCHAR
+      - name: BIRTH_DATE
+        type: VARCHAR
+      - name: VOTER_STATUS
+        type: VARCHAR
+        tests:
+          - relationships:
+              to: ref('voter_status')
+              field: status_code
+      - name: REGISTRATION_DATE
+        type: DATE
+      - name: CONGRESSIONAL_DISTRICT
+        type: VARCHAR
+      - name: STATE_SENATE_DISTRICT
+        type: VARCHAR
+      - name: STATE_HOUSE_DISTRICT
+        type: VARCHAR
+      - name: JUDICIAL_DISTRICT
+        type: VARCHAR
+      - name: COUNTY_COMMISSION_DISTRICT
+        type: VARCHAR
+      - name: SCHOOL_BOARD_DISTRICT
+        type: VARCHAR
+      - name: CITY_COUNCIL_DISTRICT
+        type: VARCHAR
+      - name: COUNTY_PRECINCT
+        type: VARCHAR
+      - name: MUNICIPAL_PRECINCT
+        type: VARCHAR
+      - name: RACE
+        type: VARCHAR
+        tests:
+          - relationships:
+              to: ref('races')
+              field: code
+      - name: GENDER
+        type: VARCHAR
+        tests:
+          - relationships:
+              to: ref('genders')
+              field: gender_code
+      - name: MAILING_ADDRESS_LINE_1
+        type: VARCHAR
+      - name: MAILING_ADDRESS_LINE_2
+        type: VARCHAR
+      - name: MAILING_LINE_3
+        type: VARCHAR
+      - name: MAILING_CITY
+        type: VARCHAR
+      - name: MAILING_STATE
+        type: VARCHAR
+      - name: MAILING_ZIPCODE
+        type: VARCHAR
+      - name: MAILING_COUNTRY
+        type: VARCHAR
+
+

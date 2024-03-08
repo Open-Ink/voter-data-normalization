@@ -1,0 +1,53 @@
+CODE,NAME,DENSITY,FID
+AL,Alabama,94.65,1
+AK,Alaska,1.264,2
+AZ,Arizona,57.05,4
+AR,Arkansas,56.43,5
+CA,California,241.7,6
+CO,Colorado,49.33,8
+CT,Connecticut,739.1,9
+DE,Delaware,464.3,10
+DC,District of Columbia,10065,11
+FL,Florida,353.4,12
+GA,Georgia,169.5,13
+HI,Hawaii,214.1,15
+ID,Idaho,19.15,16
+IL,Illinois,231.5,17
+IN,Indiana,181.7,18
+IA,Iowa,54.81,19
+KS,Kansas,35.09,20
+KY,Kentucky,110,21
+LA,Louisiana,105,22
+ME,Maine,43.04,23
+MD,Maryland,596.3,24
+MA,Massachusetts,840.2,25
+MI,Michigan,173.9,26
+MN,Minnesota,67.14,27
+MS,Mississippi,63.5,28
+MO,Missouri,87.26,29
+MT,Montana,6.858,30
+NE,Nebraska,23.97,31
+NV,Nevada,24.8,32
+NH,New Hampshire,147,33
+NJ,New Jersey,1189,34
+NM,New Mexico,17.16,35
+NY,New York,412.3,36
+NC,North Carolina,198.2,37
+ND,North Dakota,9.916,38
+OH,Ohio,281.9,39
+OK,Oklahoma,55.22,40
+OR,Oregon,40.33,41
+PA,Pennsylvania,284.3,42
+PR,Puerto Rico,1082,72
+RI,Rhode Island,1006,44
+SC,South Carolina,155.4,45
+SD,South Dakota,98.07,46
+TN,Tennessee,88.08,47
+TX,Texas,98.07,48
+UT,Utah,34.3,49
+VT,Vermont,67.73,50
+VA,Virginia,204.5,51
+WA,Washington,102.6,53
+WV,West Virginia,77.06,54
+WI,Wisconsin,105.2,55
+WY,Wyoming,5.851,56

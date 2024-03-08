@@ -1,0 +1,5 @@
+groups:
+  - name: voter_data
+    owner:
+      # 'name' or 'email' is required; additional properties allowed
+      name: Open Ink
