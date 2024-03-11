@@ -1,0 +1,17 @@
+.logo > a > img {
+    opacity: 0;
+}
+
+.logo {
+    background: url(/Open-Ink-Logo.png);
+    width: 215px !important;
+    height: 58px !important;
+}
+
+pre {
+    background-color: #444 !important;
+}
+
+body {
+    font-family: Geist, sans-serif !important    ;
+}
