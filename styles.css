@@ -3,7 +3,7 @@
 }
 
 .logo {
-    background: url(/Open-Ink-Logo.png);
+    background: url(/voter-data-normalization/Open-Ink-Logo.png);
     width: 215px !important;
     height: 58px !important;
 }
@@ -13,5 +13,10 @@ pre {
 }
 
 body {
-    font-family: Geist, sans-serif !important    ;
+    font-family: Geist, sans-serif !important;
+}
+
+code.highlight {
+    background-color: unset !important;
+    color: white !important;
 }
